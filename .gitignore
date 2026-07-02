@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual Environment
+venv/
+.venv/
+
+# VS Code
+.vscode/
+
+# Database
+attendance.db
+*.db
+*.sqbpro
+
+# Excel
+attendance.xlsx
+*.xlsx
+
+# Environment
+.env

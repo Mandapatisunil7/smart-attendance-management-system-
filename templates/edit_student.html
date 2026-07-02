@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Edit Student</h2>
+
+<form action="/update_student" method="POST">
+
+<input
+type="hidden"
+name="id"
+value="{{ student[0] }}">
+
+<div class="mb-3">
+
+<label>Roll No</label>
+
+<input
+class="form-control"
+name="roll"
+value="{{ student[1] }}">
+
+</div>
+
+<div class="mb-3">
+
+<label>Name</label>
+
+<input
+class="form-control"
+name="name"
+value="{{ student[2] }}">
+
+</div>
+
+<div class="mb-3">
+
+<label>Department</label>
+
+<input
+class="form-control"
+name="department"
+value="{{ student[3] }}">
+
+</div>
+
+<div class="mb-3">
+
+<label>Year</label>
+
+<input
+class="form-control"
+name="year"
+value="{{ student[4] }}">
+
+</div>
+
+<div class="mb-3">
+
+<label>Section</label>
+
+<input
+class="form-control"
+name="section"
+value="{{ student[5] }}">
+
+</div>
+
+<button class="btn btn-success">
+
+Update Student
+
+</button>
+
+</form>
+
+{% endblock %}

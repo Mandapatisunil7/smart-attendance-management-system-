@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    📊 Attendance Report
+</h2>
+
+<div class="card shadow mb-4">
+
+    <div class="card-body">
+
+        <form action="/view_attendance" method="GET">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <label class="form-label">Date</label>
+
+                    <input
+                        type="date"
+                        name="date"
+                        value="{{ selected_date }}"
+                        class="form-control">
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label class="form-label">Subject</label>
+
+                    <input
+                        type="text"
+                        name="subject"
+                        value="{{ subject if subject else '' }}"
+                        class="form-control"
+                        placeholder="Enter Subject">
+
+                </div>
+
+                <div class="col-md-4 d-flex align-items-end">
+
+                    <button class="btn btn-primary me-2">
+
+                        Search
+
+                    </button>
+
+                    <a href="/view_attendance"
+                       class="btn btn-secondary">
+
+                        Reset
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<table class="table table-bordered table-hover">
+
+<thead class="table-dark">
+
+<tr>
+
+<th>Date</th>
+<th>Subject</th>
+<th>Roll No</th>
+<th>Name</th>
+<th>Status</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for a in attendance %}
+
+<tr>
+
+<td>{{ a[1] }}</td>
+
+<td>{{ a[4] }}</td>
+
+<td>{{ a[2] }}</td>
+
+<td>{{ a[3] }}</td>
+
+<td>
+
+{% if a[5]=="Present" %}
+
+<span class="badge bg-success">
+
+Present
+
+</span>
+
+{% else %}
+
+<span class="badge bg-danger">
+
+Absent
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+<a href="/edit_attendance/{{ a[0] }}"
+class="btn btn-warning btn-sm">
+
+Edit
+
+</a>
+
+<a href="/delete_attendance/{{ a[0] }}"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Delete this attendance record?')">
+
+Delete
+
+</a>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+{% endblock %}

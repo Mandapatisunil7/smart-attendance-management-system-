@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row mb-4">
+
+    <div class="col-md-8">
+
+        <h2 class="fw-bold">
+            🎓 Smart Attendance Dashboard
+        </h2>
+
+        <p class="text-muted">
+            Welcome,
+            <strong>{{ username }}</strong>
+        </p>
+
+    </div>
+
+    <div class="col-md-4 text-end">
+
+        <h5>📅 {{ today }}</h5>
+
+        <h6 class="text-muted">🕒 {{ current_time }}</h6>
+
+    </div>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="row">
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow border-0 bg-primary text-white">
+
+            <div class="card-body text-center">
+
+                <h5>Total Students</h5>
+
+                <h1>{{ total }}</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow border-0 bg-success text-white">
+
+            <div class="card-body text-center">
+
+                <h5>Present Today</h5>
+
+                <h1>{{ present }}</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4 mb-4">
+
+        <div class="card shadow border-0 bg-danger text-white">
+
+            <div class="card-body text-center">
+
+                <h5>Absent Today</h5>
+
+                <h1>{{ absent }}</h1>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Quick Actions -->
+
+<div class="row mb-4">
+
+    <div class="col-md-3">
+
+        <a href="{{ url_for('students') }}"
+           class="btn btn-primary w-100 p-3">
+
+            👨‍🎓<br>
+
+            Student Management
+
+        </a>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <a href="{{ url_for('attendance') }}"
+           class="btn btn-success w-100 p-3">
+
+            📋<br>
+
+            Mark Attendance
+
+        </a>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <a href="{{ url_for('view_attendance') }}"
+           class="btn btn-warning w-100 p-3">
+
+            📊<br>
+
+            Attendance Report
+
+        </a>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <a href="{{ url_for('download') }}"
+           class="btn btn-dark w-100 p-3">
+
+            📥<br>
+
+            Download Excel
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- Attendance Chart -->
+
+<div class="card shadow border-0">
+
+    <div class="card-header bg-white">
+
+        <h4 class="mb-0">
+
+            Today's Attendance Overview
+
+        </h4>
+
+    </div>
+
+    <div class="card-body">
+
+        <canvas id="attendanceChart"></canvas>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const present = parseInt('{{ present|default(0) }}');
+
+    const absent = parseInt('{{ absent|default(0) }}');
+
+    const canvas = document.getElementById("attendanceChart");
+
+    if (!canvas) return;
+
+    new Chart(canvas, {
+
+        type: "doughnut",
+
+        data: {
+
+            labels: [
+
+                "Present",
+
+                "Absent"
+
+            ],
+
+            datasets: [
+
+                {
+
+                    data: [
+
+                        present,
+
+                        absent
+
+                    ],
+
+                    backgroundColor: [
+
+                        "#198754",
+
+                        "#dc3545"
+
+                    ],
+
+                    borderWidth: 1
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            plugins: {
+
+                legend: {
+
+                    position: "bottom"
+
+                }
+
+            }
+
+        }
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

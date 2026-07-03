@@ -3,14 +3,27 @@ import sqlite3
 conn = sqlite3.connect("attendance.db")
 cursor = conn.cursor()
 
+# Add subject column to attendance table
 try:
     cursor.execute("""
         ALTER TABLE attendance
         ADD COLUMN subject TEXT
     """)
-    print("✅ Subject column added successfully.")
+    print("✅ subject column added.")
 except sqlite3.OperationalError:
-    print("⚠️ Subject column already exists.")
+    print("ℹ️ subject column already exists.")
+
+# Add is_deleted column to students table
+try:
+    cursor.execute("""
+        ALTER TABLE students
+        ADD COLUMN is_deleted INTEGER DEFAULT 0
+    """)
+    print("✅ is_deleted column added.")
+except sqlite3.OperationalError:
+    print("ℹ️ is_deleted column already exists.")
 
 conn.commit()
 conn.close()
+
+print("Database updated successfully.")

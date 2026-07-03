@@ -1,6 +1,5 @@
 from datetime import date,datetime
 from flask import Flask, render_template, request, redirect, session, flash
-import database
 from excel import save_to_excel
 from flask import send_file
 from functools import wraps
@@ -236,13 +235,13 @@ def dashboard():
     total = cursor.fetchone()[0]
 
     cursor.execute(
-        "SELECT COUNT(*) FROM attendance WHERE attendance_date=? AND status='Present' AND is_deleted=0",
+        "SELECT COUNT(*) FROM attendance WHERE attendance_date=? AND status='Present'",
         (today,)
     )
     present = cursor.fetchone()[0]
 
     cursor.execute(
-        "SELECT COUNT(*) FROM attendance WHERE attendance_date=? AND status='Absent' AND is_deleted=0",
+        "SELECT COUNT(*) FROM attendance WHERE attendance_date=? AND status='Absent'",
         (today,)
     )
     absent = cursor.fetchone()[0]

@@ -1,6 +1,10 @@
 import sqlite3
+import os
 
 conn = sqlite3.connect("attendance.db")
+
+print("Current folder:", os.getcwd())
+print("Database file:", os.path.abspath("attendance.db"))
 cursor = conn.cursor()
 
 # Add subject column
